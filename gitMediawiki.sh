@@ -43,6 +43,7 @@ FILE=composer.json
 if [ -f $FILE ];
 then
    composer install
+   composer update
 else
    echo "File $FILE does not exist. Skipping composer install"
 fi

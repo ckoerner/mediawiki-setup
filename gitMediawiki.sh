@@ -38,7 +38,6 @@ echo "installing.."
 for extension in Arrays CategoryTree CirrusSearch Cite cldr ContributionScores CSS DataTransfer Echo ExternalData Flow Gadgets Graph googleAnalytics HeaderTabs InputBox Interwiki JsonConfig LdapAuthentication Lockdown MobileFrontend MultiBoilerplate MultimediaViewer NoTitle Nuke ParserFunctions Renameuser ReplaceText Scribunto SemanticCompoundQueries SemanticDrilldown SemanticForms SemanticFormsInputs SemanticInternalObjects SpamBlacklist SyntaxHighlight_GeSHi TemplateData TextExtracts Thanks TitleKey UniversalLanguageSelector UploadWizard Variables WatchSubpages WhoIsWatching WikiEditor HitCounters
 do
 git clone "$repoDir$extension.git" "extensions/$extension"
-cd extensions/$extension
 FILE=composer.json
 
 if [ -f $FILE ];
@@ -47,14 +46,13 @@ then
 else
    echo "File $FILE does not exist. Skipping composer install"
 fi
-cd ..
-cd ..
 done
+cd ..
 echo "Done installing vanilla extensions"
 #now we're going to install the few that have submodules
 echo "Installing extensions with submodules in /extensions"
 echo "installing.."
-cd extensions/
+cd $releaseDir/extensions/
 #Widgets
 git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Widgets.git
 cd Widgets
@@ -73,11 +71,8 @@ cd ..
 #git submodule init
 #git submodule update
 #cd..
-#Validator
-cd Validator
-composer install
 #let's go back up and take care of the few installed via composer
-cd ../../
+cd ..
 echo "Done installing extensions with submodules!"
 echo "Installing extensions via composer"
 echo "installing..."
@@ -85,11 +80,14 @@ for extension in image-map semantic-media-wiki semantic-maps maps semantic-resul
 do
 #this gets the latest 'dev' version of each extension
 composer require mediawiki/"$extension" @dev --update-no-dev
-#dont forget to run composer install in each of these
 done
+#Validator
+cd extensions/
+cd Validator
+composer install
+cd ..
 #how about those  extensions that live in other corners of the web?
 #ExternalLinks
-cd extensions
 git clone https://github.com/roman-1983/mediawiki-ExternalLinks.git ExternalLinks
 #SemanticFormsSelect
 git clone https://code.google.com/p/semanticformsselect/ SemanticFormsSelect

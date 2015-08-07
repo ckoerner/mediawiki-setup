@@ -16,3 +16,6 @@ It does a few things
 * Install dependencies (composer) and submodules (git) for the MW Core,
  extensions, and Parsoid
 
+For extensions hosted in WM gerrit and those managed by Composer adding
+a new extension is as easy as adding it's name to the right part of the
+script. YMMV and constructive input is welcome. 

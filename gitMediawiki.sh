@@ -100,12 +100,15 @@ git clone https://gerrit.wikimedia.org/r/p/mediawiki/skins/Vector.git
 echo "Vector Installed!"
 #Foreground too
 git clone https://github.com/thingles/foreground.git
+echo "Foreground Installed!"
 #now get parsoid all setup - in the ~/ directory
 cd ../../
 git clone https://gerrit.wikimedia.org/r/p/mediawiki/services/parsoid
 cd parsoid
 npm install
-#for some reason node-gyp always fails for me. Let's install it manually NOTE: Seems like running of node-gyp requires root access
+#for some reason node-gyp always fails for me. Let's install it manually
+#NOTE: Seems like running of node-gyp requires root access
+#NOTE: Maybe node-gyp is no longer needed?
 npm install node-gyp
 #
 #Add some fancy script to create the /log directory

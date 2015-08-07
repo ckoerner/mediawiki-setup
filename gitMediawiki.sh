@@ -87,7 +87,7 @@ do
 composer require mediawiki/"$extension" @dev --update-no-dev
 #dont forget to run composer install in each of these
 done
-#how about those three extensions that live in weird corners of the web?
+#how about those  extensions that live in other corners of the web?
 #ExternalLinks
 cd extensions
 git clone https://github.com/roman-1983/mediawiki-ExternalLinks.git ExternalLinks

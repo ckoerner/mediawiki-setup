@@ -8,11 +8,11 @@ changes. To make it a little easier to update and add changes (like a
 new extension) I use this.
 
 It does a few things 
-*Download a specific MediaWiki branch - say
+* Download a specific MediaWiki branch - say
 1.25wmf10 
-*Download Extensions - some in gerrit, some elseware 
-*Install skins
-*Download Parsoid
-*Install dependencies (composer) and submodules (git) for the MW Core,
+* Download Extensions - some in gerrit, some elseware 
+* Install skins
+* Download Parsoid
+* Install dependencies (composer) and submodules (git) for the MW Core,
  extensions, and Parsoid
 

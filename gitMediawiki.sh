@@ -26,7 +26,6 @@ cd ..
 #Now we're in the folder you ran this script from ~/
 cd $releaseDir
 #Now let's install mediawiki core dependencies via composer - https://www.mediawiki.org/wiki/Download_from_Git#Fetch_external_libraries
-#this is not working ATM, do it manually after script runs. Blargh.
 composer install --no-dev
 composer update
 #now install  extensions via git that don't require additional steps
@@ -35,9 +34,11 @@ echo "Installing extensions in $releaseDir/extensions"
 echo "from" $repoDir
 echo "installing.."
 #this is the long list of extensions - CamelCase, separated by a space
+#Adding new extensions to your setup is easy as adding a new one to this list. Like what I've done for HitCounters
 for extension in Arrays CategoryTree CirrusSearch Cite cldr ContributionScores CSS DataTransfer Echo ExternalData Flow Gadgets Graph googleAnalytics HeaderTabs InputBox Interwiki JsonConfig LdapAuthentication Lockdown MobileFrontend MultiBoilerplate MultimediaViewer NoTitle Nuke ParserFunctions Renameuser ReplaceText Scribunto SemanticCompoundQueries SemanticDrilldown SemanticForms SemanticFormsInputs SemanticInternalObjects SpamBlacklist SyntaxHighlight_GeSHi TemplateData TextExtracts Thanks TitleKey UniversalLanguageSelector UploadWizard Variables WatchSubpages WhoIsWatching WikiEditor HitCounters
 do
 git clone "$repoDir$extension.git" "extensions/$extension"
+#Check and see if a composer.json file exists in the extension directory. If so, run install and update. If not, keep on going
 FILE=composer.json
 
 if [ -f $FILE ];
@@ -77,21 +78,24 @@ cd ..
 echo "Done installing extensions with submodules!"
 echo "Installing extensions via composer"
 echo "installing..."
+#similar to before, we have a list of extensions and a loop. these are the package (extension) names on packagist.org
 for extension in image-map semantic-media-wiki semantic-maps maps semantic-result-formats parser-hooks semantic-watchlist
 do
 #this gets the latest 'dev' version of each extension
 composer require mediawiki/"$extension" @dev --update-no-dev
 done
 #Validator
+#Validator needs its own dependencies installed.
 cd extensions/
 cd Validator
 composer install
 cd ..
-#how about those  extensions that live in other corners of the web?
+#how about those extensions that live in other corners of the web?
 #ExternalLinks
 git clone https://github.com/roman-1983/mediawiki-ExternalLinks.git ExternalLinks
 #SemanticFormsSelect
 git clone https://code.google.com/p/semanticformsselect/ SemanticFormsSelect
+echo "Done installing odd-ball extensions"
 #lets go get the Vector skin - make sure to initialize in LocalSettings.php!
 cd ..
 cd skins
@@ -107,7 +111,7 @@ cd parsoid
 npm install
 #for some reason node-gyp always fails for me. Let's install it manually
 #NOTE: Seems like running of node-gyp requires root access
-#NOTE: Maybe node-gyp is no longer needed?
+#NOTE: Maybe node-gyp is no longer needed? https://www.mediawiki.org/wiki/Parsoid/Developer_Setup#Optional_help
 npm install node-gyp
 #
 #Add some fancy script to create the /log directory

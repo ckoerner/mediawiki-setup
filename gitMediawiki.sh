@@ -11,7 +11,7 @@
 #prerequisites	:This script also assumes you have git, svn, composer and npm (for parsoid) installed :/
 
 #prompt for release you'd like. We'll then use that as the name of our directory (without the period in the directory name)
-echo "Which branch to you want? (i.e. 1.25wmf6)"
+echo "Which branch to you want? (i.e. 1.25wmf6 or REL1_26)"
 read release
 echo "getting $release"
 #get rid of that nasty period for our install directory
